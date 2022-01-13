@@ -1,22 +1,21 @@
 <template>
   <v-container class="page page-news-detail">
     <h1 class="page-title">
-      {{ news.fields.title }}
+      {{ pageData.title }}
     </h1>
     <div class="date text-right">
-      {{ $moment(news.fields.publishDate).format('D MMMM YYYY') }}
+      {{ $moment(pageData.publishDate).format('D MMMM YYYY') }}
     </div>
     <div class="author text-right">
-      oleh: {{ news.fields.author.fields.name }}
+      oleh: {{ pageData.author.name }}
     </div>
     <div class="content">
       <v-img
-        :src="news.fields.heroImage.fields.file.url + '?fm=jpg&fl=progressive'"
-        :alt="news.fields.heroImage.fields.file.fileName"
+    
         class="news-image"
         cover
       />
-      <span v-html="$md.render(news.fields.body)" />
+      <span v-html="$md.render(pageData.body)" />
     </div>
     <div class="share-buttons text-center">
       <v-btn
@@ -66,49 +65,20 @@
 </style>
 
 <script>
-// import { createClient } from '~/plugins/contentful.js'
-
-// const client = createClient()
-let thisnews
-let waHref
-
-// export default {
-//   async asyncData ({ env, params }) {
-//     try {
-//       const pathUrl = 'https://imerz.imavi.org/news/' + params.slug
-//       const thisPost = await client.getEntries({
-//         content_type: 'blogPost',
-//         'fields.slug': params.slug
-//       })
-
-//       if (thisPost) {
-//         thisnews = thisPost.items[0]
-//         waHref = 'https://wa.me/?text=%2A' + encodeURIComponent(thisnews.fields.title) + '%2A%0A_' + encodeURIComponent(thisnews.fields.excerpt) + '_%0A%0A' + 'Baca%20lebih%20lanjut%20di%20website%20youcat%2Eid' + '%0A' + encodeURIComponent(pathUrl)
-//       }
-//       return {
-//         waHref,
-//         news: thisPost.items[0]
-//       }
-//     } catch (e) {
-//       // eslint-disable-next-line
-//       console.error(e)
-//     }
-//   },
-//   head (params) {
-//     if (thisnews) {
-//       const thisUrl = 'https://imerz.imavi.org/news/' + params.slug
-//       return {
-//         meta: [
-//           // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-//           { hid: 'title', name: 'title', content: thisnews.fields.title },
-//           { hid: 'description', name: 'description', content: thisnews.fields.excerpt },
-//           { hid: 'og:title', name: 'og:title', content: thisnews.fields.title },
-//           { hid: 'og:description', name: 'og:description', content: thisnews.fields.excerpt },
-//           { hid: 'og:image', name: 'og:image', content: thisnews.fields.heroImage.fields.file.url },
-//           { hid: 'og:url', name: 'og:url', content: thisUrl }
-//         ]
-//       }
-//     }
-//   }
-// }
+export default {
+  data: () => ({
+    pageData: {},
+    type: 'news'
+  }),
+  async fetch () {
+    let payload = this.$nuxt.context.payload
+    if (!payload) {
+      payload = await this.$axios.$post('/.netlify/functions/imavi-detail', {
+        type: this.type,
+        code: this.$nuxt.context.params.slug
+      })
+    }
+    this.pageData = payload
+  }
+}
 </script>

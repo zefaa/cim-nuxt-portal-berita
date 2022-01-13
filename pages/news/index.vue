@@ -5,26 +5,22 @@
     align-center
     class="page page-news-list"
   >
-    <h1 class="page-title">
-      Berita-berita
-    </h1>
     <v-row
       class="news-list"
     >
       <v-col
         v-for="post in posts"
-        :key="post.fields.slug"
+        :key="post.slug"
         xs="12"
         sm="12"
         md="6"
         lg="4"
         class="news-list-item"
       >
-        <n-link :to="'/news/' + post.fields.slug">
+        <n-link :to="'/news/' + post.slug">
           <v-card>
             <v-img
-              :src="post.fields.heroImage.fields.file.url + '?fm=jpg&fl=progressive'"
-              :alt="post.fields.heroImage.fields.file.fileName"
+              
               class="white--text align-end"
               gradient="to bottom, rgba(255,255,255,.1), rgba(255,255,255,.9)"
               height="270px"
@@ -33,11 +29,11 @@
             >
               <v-card-title
                 class="card-title"
-                v-text="post.fields.title"
+                v-text="post.title"
               />
               <v-card-subtitle
                 class="card-date"
-                v-text="$moment(post.fields.publishDate).format('D MMMM YYYY')"
+                v-text="$moment(post.publishDate).format('D MMMM YYYY')"
               />
             </v-img>
           </v-card>
@@ -125,30 +121,21 @@
 </style>
 
 <script>
-// import { createClient } from '~/plugins/contentful.js'
 
-// const client = createClient()
+export default{
+  //load data dari post
+  data: () => ({
+    posts: []
+  }),
 
-// export default {
-//   components: {
-//   },
-//   async asyncData ({ env }) {
-//     try {
-//       const getPosts = await client.getEntries({
-//         content_type: 'blogPost',
-//         order: '-fields.publishDate'
-//       })
-//       return {
-//         posts: getPosts.items
-//       }
-//     } catch (e) {
-//       // eslint-disable-next-line
-//       console.error(e)
-//     }
-//   },
-//   computed: {
-//   },
-//   mounted () {
-//   }
-// }
+  async fetch (){
+    let payload = this.$nuxt.context.payload
+    if (!payload) {
+      payload = await this.$axios.$post('/.netlify/funsctions/imavi-list', {
+        type: 'news'
+      })
+    }
+    this.posts = payload
+  }
+}
 </script>
