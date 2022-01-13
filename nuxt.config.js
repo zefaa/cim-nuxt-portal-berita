@@ -85,7 +85,7 @@ export default {
   */
   plugins: [
     { src: '~/plugins/underscore', ssr: false },
-    '~/plugins/contentful'
+    // '~/plugins/contentful'
   ],
   /*
   ** Nuxt.js dev-modules

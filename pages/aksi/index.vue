@@ -443,8 +443,8 @@
 
 <script>
 // import moment from 'moment'
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { createClient } from '~/plugins/contentful.js'
+// import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+// import { createClient } from '~/plugins/contentful.js'
 
 const client = createClient()
 

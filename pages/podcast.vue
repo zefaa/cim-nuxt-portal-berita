@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import { createClient } from '~/plugins/contentful.js'
+// import { createClient } from '~/plugins/contentful.js'
 
 const client = createClient()
 let CommonPodcasts

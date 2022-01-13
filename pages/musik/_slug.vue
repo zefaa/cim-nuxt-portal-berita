@@ -27,8 +27,8 @@
 </style>
 
 <script>
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-import { createClient } from '~/plugins/contentful.js'
+// import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+// import { createClient } from '~/plugins/contentful.js'
 
 const client = createClient()
 let thisSong
