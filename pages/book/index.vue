@@ -201,35 +201,35 @@
 <script>
 // import { createClient } from '~/plugins/contentful.js'
 
-const client = createClient()
+// const client = createClient()
 
-export default {
-  components: {
-  },
-  async asyncData ({ env }) {
-    try {
-      const getPosts = await client.getEntries({
-        content_type: 'book',
-        order: 'fields.position',
-        'fields.anchorBook': true
-      })
-      const getOthers = await client.getEntries({
-        content_type: 'book',
-        order: 'fields.position',
-        'fields.anchorBook': false
-      })
-      return {
-        anchorPosts: getPosts.items,
-        otherPosts: getOthers.items
-      }
-    } catch (e) {
-      // eslint-disable-next-line
-      console.error(e)
-    }
-  },
-  computed: {
-  },
-  mounted () {
-  }
-}
+// export default {
+//   components: {
+//   },
+//   async asyncData ({ env }) {
+//     try {
+//       const getPosts = await client.getEntries({
+//         content_type: 'book',
+//         order: 'fields.position',
+//         'fields.anchorBook': true
+//       })
+//       const getOthers = await client.getEntries({
+//         content_type: 'book',
+//         order: 'fields.position',
+//         'fields.anchorBook': false
+//       })
+//       return {
+//         anchorPosts: getPosts.items,
+//         otherPosts: getOthers.items
+//       }
+//     } catch (e) {
+//       // eslint-disable-next-line
+//       console.error(e)
+//     }
+//   },
+//   computed: {
+//   },
+//   mounted () {
+//   }
+// }
 </script>

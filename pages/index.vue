@@ -9,6 +9,7 @@
       <h2 class="section-title">
         Artikel-artikel Pilihan
       </h2>
+      <v-icon>mdi-home</v-icon>
       <v-row
         class="article-list"
       >
@@ -712,7 +713,7 @@
 // import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 // import { createClient } from '~/plugins/contentful.js'
 
-const client = createClient()
+// const client = createClient()
 
 // const bgomk = require('@/assets/img/segments/bgomk.jpg')
 
@@ -758,61 +759,61 @@ const vpositions = [
 
 // const today = moment().format('D-MM-YYYY')
 
-export default {
-  async asyncData ({ env }) {
-    try {
-      const getArticles = await client.getEntries({
-        content_type: 'article',
-        'fields.featured': true,
-        order: '-sys.createdAt',
-        limit: 3
-      })
-      const getJournals = await client.getEntries({
-        content_type: 'journal',
-        order: '-sys.createdAt',
-        limit: 3
-      })
-      const getNews = await client.getEntries({
-        content_type: 'blogPost',
-        order: '-sys.createdAt',
-        limit: 3
-      })
-      const getPrayers = await client.getEntries({
-        content_type: 'prayer',
-        order: '-sys.createdAt',
-        'fields.featured': true,
-        limit: 1
-      })
-      const getSponsors = await client.getEntries({
-        content_type: 'sponsor',
-        order: '-fields.order',
-        'fields.type': 0
-      })
+// export default {
+//   async asyncData ({ env }) {
+//     try {
+//       const getArticles = await client.getEntries({
+//         content_type: 'article',
+//         'fields.featured': true,
+//         order: '-sys.createdAt',
+//         limit: 3
+//       })
+//       const getJournals = await client.getEntries({
+//         content_type: 'journal',
+//         order: '-sys.createdAt',
+//         limit: 3
+//       })
+//       const getNews = await client.getEntries({
+//         content_type: 'blogPost',
+//         order: '-sys.createdAt',
+//         limit: 3
+//       })
+//       const getPrayers = await client.getEntries({
+//         content_type: 'prayer',
+//         order: '-sys.createdAt',
+//         'fields.featured': true,
+//         limit: 1
+//       })
+//       const getSponsors = await client.getEntries({
+//         content_type: 'sponsor',
+//         order: '-fields.order',
+//         'fields.type': 0
+//       })
 
-      const todayPrayer = getPrayers.items[0]
-      return {
-        articles: getArticles.items,
-        journals: getJournals.items,
-        news: getNews.items,
-        sponsors: getSponsors.items,
-        todayPrayer,
-        imgAksi: require('@/assets/img/banners/anjal3.jpg'),
-        direx: require('@/assets/img/banners/direx-banner.jpg'),
-        segment1: require('@/assets/img/segments/bgomk.jpg'),
-        segment2: require('@/assets/img/segments/bgpomk.jpg'),
-        segment3: require('@/assets/img/segments/bgortu.jpg'),
-        youcatSegments,
-        vpositions
-      }
-    } catch (e) {
-      // eslint-disable-next-line
-      console.error(e)
-    }
-  },
-  computed: {
-  },
-  mounted () {
-  }
-}
+//       const todayPrayer = getPrayers.items[0]
+//       return {
+//         articles: getArticles.items,
+//         journals: getJournals.items,
+//         news: getNews.items,
+//         sponsors: getSponsors.items,
+//         todayPrayer,
+//         imgAksi: require('@/assets/img/banners/anjal3.jpg'),
+//         direx: require('@/assets/img/banners/direx-banner.jpg'),
+//         segment1: require('@/assets/img/segments/bgomk.jpg'),
+//         segment2: require('@/assets/img/segments/bgpomk.jpg'),
+//         segment3: require('@/assets/img/segments/bgortu.jpg'),
+//         youcatSegments,
+//         vpositions
+//       }
+//     } catch (e) {
+//       // eslint-disable-next-line
+//       console.error(e)
+//     }
+//   },
+//   computed: {
+//   },
+//   mounted () {
+//   }
+// }
 // Catatan RD Kurdo Irianto, sebuah suara harapan di tengah badai COVID-19
 </script>

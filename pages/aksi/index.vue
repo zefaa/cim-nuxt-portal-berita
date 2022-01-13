@@ -446,93 +446,93 @@
 // import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 // import { createClient } from '~/plugins/contentful.js'
 
-const client = createClient()
+// const client = createClient()
 
 let todayJournal
 
 // const today = moment().format('D-MM-YYYY')
 
-export default {
-  components: {
-  },
-  async asyncData ({ env }) {
-    try {
-      const getActions = await client.getEntries({
-        content_type: 'lifeAction',
-        // 'fields.tags': 'DOCAT',
-        order: '-sys.createdAt',
-        limit: 4
-      })
-      const getJournals = await client.getEntries({
-        content_type: 'journal',
-        // 'fields.tags': 'asg',
-        order: '-sys.createdAt',
-        // skip: 1,
-        limit: 3
-      })
-      const getArticles = await client.getEntries({
-        content_type: 'article',
-        // 'fields.tags': 'asg',
-        order: '-sys.createdAt',
-        limit: 4
-      })
-      const getPrayers = await client.getEntries({
-        content_type: 'prayer',
-        order: '-sys.createdAt',
-        // 'fields.tag': 'asg',
-        limit: 4
-      })
-      todayJournal = {
-        item: getJournals.items[0],
-        content: documentToHtmlString(getJournals.items[0].fields.content)
-      }
-      const restJournals = getJournals.items.slice(1)
-      return {
-        journals: restJournals,
-        articles: getArticles.items,
-        lifeActions: getActions.items,
-        prayers: getPrayers.items,
-        docatq: require('@/assets/img/quotes-teresa.jpg'),
-        kolbeq: require('@/assets/img/quotes-kolbe.jpg'),
-        journalExpanded: false,
-        todayJournal
-      }
-    } catch (e) {
-      // eslint-disable-next-line
-      console.error(e)
-    }
-  },
-  computed: {
-    // theme () {
-    //   return this.$store.themeType.type
-    // }
-  },
-  created () {
-    this.$store.dispatch('toggleFs', true)
-  },
-  mounted () {
-    // this.$vuetify.theme.themes.light.primary = '#65b4e4'
-    // this.$vuetify.theme.themes.light.primary = '#4caf50'
-    // this.$vuetify.theme.docat = true
-    this.$vuetify.theme.fullscreen = true
-    // eslint-disable-next-line no-console
-    // console.log(this.$vuetify.theme)
-    // document.body.classList.add('fullscreen')
-    // document.body.classList.add('docat')
-  },
-  // updated () {
-  //   document.body.classList.remove('fullscreen')
-  //   document.body.classList.remove('docat')
-  // },
-  updated () {
-    // this.$store.dispatch('toggleFs', false)
-  },
-  methods: {
-    toggleExpansion () {
-      const getStatus = this.journalExpanded
-      this.journalExpanded = !getStatus
-    }
-  }
-}
+// export default {
+//   components: {
+//   },
+//   async asyncData ({ env }) {
+//     try {
+//       const getActions = await client.getEntries({
+//         content_type: 'lifeAction',
+//         // 'fields.tags': 'DOCAT',
+//         order: '-sys.createdAt',
+//         limit: 4
+//       })
+//       const getJournals = await client.getEntries({
+//         content_type: 'journal',
+//         // 'fields.tags': 'asg',
+//         order: '-sys.createdAt',
+//         // skip: 1,
+//         limit: 3
+//       })
+//       const getArticles = await client.getEntries({
+//         content_type: 'article',
+//         // 'fields.tags': 'asg',
+//         order: '-sys.createdAt',
+//         limit: 4
+//       })
+//       const getPrayers = await client.getEntries({
+//         content_type: 'prayer',
+//         order: '-sys.createdAt',
+//         // 'fields.tag': 'asg',
+//         limit: 4
+//       })
+//       todayJournal = {
+//         item: getJournals.items[0],
+//         content: documentToHtmlString(getJournals.items[0].fields.content)
+//       }
+//       const restJournals = getJournals.items.slice(1)
+//       return {
+//         journals: restJournals,
+//         articles: getArticles.items,
+//         lifeActions: getActions.items,
+//         prayers: getPrayers.items,
+//         docatq: require('@/assets/img/quotes-teresa.jpg'),
+//         kolbeq: require('@/assets/img/quotes-kolbe.jpg'),
+//         journalExpanded: false,
+//         todayJournal
+//       }
+//     } catch (e) {
+//       // eslint-disable-next-line
+//       console.error(e)
+//     }
+//   },
+//   computed: {
+//     // theme () {
+//     //   return this.$store.themeType.type
+//     // }
+//   },
+//   created () {
+//     this.$store.dispatch('toggleFs', true)
+//   },
+//   mounted () {
+//     // this.$vuetify.theme.themes.light.primary = '#65b4e4'
+//     // this.$vuetify.theme.themes.light.primary = '#4caf50'
+//     // this.$vuetify.theme.docat = true
+//     this.$vuetify.theme.fullscreen = true
+//     // eslint-disable-next-line no-console
+//     // console.log(this.$vuetify.theme)
+//     // document.body.classList.add('fullscreen')
+//     // document.body.classList.add('docat')
+//   },
+//   // updated () {
+//   //   document.body.classList.remove('fullscreen')
+//   //   document.body.classList.remove('docat')
+//   // },
+//   updated () {
+//     // this.$store.dispatch('toggleFs', false)
+//   },
+//   methods: {
+//     toggleExpansion () {
+//       const getStatus = this.journalExpanded
+//       this.journalExpanded = !getStatus
+//     }
+//   }
+// }
 // Catatan RD Kurdo Irianto, sebuah suara harapan di tengah badai COVID-19
 </script>

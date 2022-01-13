@@ -55,44 +55,44 @@
 // import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 // import { createClient } from '~/plugins/contentful.js'
 
-const client = createClient()
+// const client = createClient()
 let thislifeAction
 
-export default {
-  async asyncData ({ env, params }) {
-    try {
-      const thisPost = await client.getEntries({
-        content_type: 'lifeAction',
-        'fields.slug': params.slug
-      })
+// export default {
+//   async asyncData ({ env, params }) {
+//     try {
+//       const thisPost = await client.getEntries({
+//         content_type: 'lifeAction',
+//         'fields.slug': params.slug
+//       })
 
-      if (thisPost) {
-        thislifeAction = thisPost.items[0]
-      }
-      return {
-        lifeAction: thisPost.items[0],
-        content: documentToHtmlString(thisPost.items[0].fields.content)
-      }
-    } catch (e) {
-      // eslint-disable-next-line
-      console.error(e)
-    }
-  },
-  head () {
-    if (thislifeAction) {
-      const thisUrl = 'https://imerz.imavi.org/lakukan/' + thislifeAction.fields.slug
-      return {
-        meta: [
-          // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-          { hid: 'title', name: 'title', content: thislifeAction.fields.title },
-          { hid: 'description', name: 'description', content: thislifeAction.fields.excerpt },
-          { hid: 'og:title', name: 'og:title', content: thislifeAction.fields.title },
-          { hid: 'og:description', name: 'og:description', content: thislifeAction.fields.excerpt },
-          { hid: 'og:image', name: 'og:image', content: thislifeAction.fields.thumbnail.fields.file.url },
-          { hid: 'og:url', name: 'og:url', content: thisUrl }
-        ]
-      }
-    }
-  }
-}
+//       if (thisPost) {
+//         thislifeAction = thisPost.items[0]
+//       }
+//       return {
+//         lifeAction: thisPost.items[0],
+//         content: documentToHtmlString(thisPost.items[0].fields.content)
+//       }
+//     } catch (e) {
+//       // eslint-disable-next-line
+//       console.error(e)
+//     }
+//   },
+//   head () {
+//     if (thislifeAction) {
+//       const thisUrl = 'https://imerz.imavi.org/lakukan/' + thislifeAction.fields.slug
+//       return {
+//         meta: [
+//           // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+//           { hid: 'title', name: 'title', content: thislifeAction.fields.title },
+//           { hid: 'description', name: 'description', content: thislifeAction.fields.excerpt },
+//           { hid: 'og:title', name: 'og:title', content: thislifeAction.fields.title },
+//           { hid: 'og:description', name: 'og:description', content: thislifeAction.fields.excerpt },
+//           { hid: 'og:image', name: 'og:image', content: thislifeAction.fields.thumbnail.fields.file.url },
+//           { hid: 'og:url', name: 'og:url', content: thisUrl }
+//         ]
+//       }
+//     }
+//   }
+// }
 </script>

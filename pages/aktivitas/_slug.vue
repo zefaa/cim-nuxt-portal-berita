@@ -49,44 +49,44 @@
 // import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 // import { createClient } from '~/plugins/contentful.js'
 
-const client = createClient()
+// const client = createClient()
 let thisActivity
 
-export default {
-  async asyncData ({ env, params }) {
-    try {
-      const thisPost = await client.getEntries({
-        content_type: 'activity',
-        'fields.slug': params.slug
-      })
+// export default {
+//   async asyncData ({ env, params }) {
+//     try {
+//       const thisPost = await client.getEntries({
+//         content_type: 'activity',
+//         'fields.slug': params.slug
+//       })
 
-      if (thisPost) {
-        thisActivity = thisPost.items[0]
-      }
-      return {
-        activity: thisPost.items[0],
-        content: documentToHtmlString(thisPost.items[0].fields.descriptionRichText)
-      }
-    } catch (e) {
-      // eslint-disable-next-line
-      console.error(e)
-    }
-  },
-  head () {
-    if (thisActivity) {
-      const thisUrl = 'https://imerz.imavi.org/aktivitas/' + thisActivity.fields.slug
-      return {
-        meta: [
-          // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-          { hid: 'title', name: 'title', content: thisActivity.fields.title },
-          { hid: 'description', name: 'description', content: thisActivity.fields.excerpt },
-          { hid: 'og:title', name: 'og:title', content: thisActivity.fields.title },
-          { hid: 'og:description', name: 'og:description', content: thisActivity.fields.excerpt },
-          { hid: 'og:image', name: 'og:image', content: thisActivity.fields.thumbnail.fields.file.url },
-          { hid: 'og:url', name: 'og:url', content: thisUrl }
-        ]
-      }
-    }
-  }
-}
+//       if (thisPost) {
+//         thisActivity = thisPost.items[0]
+//       }
+//       return {
+//         activity: thisPost.items[0],
+//         content: documentToHtmlString(thisPost.items[0].fields.descriptionRichText)
+//       }
+//     } catch (e) {
+//       // eslint-disable-next-line
+//       console.error(e)
+//     }
+//   },
+//   head () {
+//     if (thisActivity) {
+//       const thisUrl = 'https://imerz.imavi.org/aktivitas/' + thisActivity.fields.slug
+//       return {
+//         meta: [
+//           // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+//           { hid: 'title', name: 'title', content: thisActivity.fields.title },
+//           { hid: 'description', name: 'description', content: thisActivity.fields.excerpt },
+//           { hid: 'og:title', name: 'og:title', content: thisActivity.fields.title },
+//           { hid: 'og:description', name: 'og:description', content: thisActivity.fields.excerpt },
+//           { hid: 'og:image', name: 'og:image', content: thisActivity.fields.thumbnail.fields.file.url },
+//           { hid: 'og:url', name: 'og:url', content: thisUrl }
+//         ]
+//       }
+//     }
+//   }
+// }
 </script>

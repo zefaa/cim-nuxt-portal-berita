@@ -30,46 +30,46 @@
 // import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 // import { createClient } from '~/plugins/contentful.js'
 
-const client = createClient()
+// const client = createClient()
 let thisPoem
 
 // thisContent = documentToHtmlString( post.fields.content )
 
-export default {
-  async asyncData ({ env, params }) {
-    try {
-      const getPoem = await client.getEntries({
-        content_type: 'poem',
-        'fields.slug': params.slug
-      })
+// export default {
+//   async asyncData ({ env, params }) {
+//     try {
+//       const getPoem = await client.getEntries({
+//         content_type: 'poem',
+//         'fields.slug': params.slug
+//       })
 
-      if (getPoem) {
-        thisPoem = getPoem.items[0]
-      }
-      return {
-        poem: getPoem.items[0],
-        description: documentToHtmlString(getPoem.items[0].fields.description)
-      }
-    } catch (e) {
-      // eslint-disable-next-line
-      console.error(e)
-    }
-  },
-  head () {
-    if (thisPoem) {
-      const poemUrl = 'https://imerz.imavi.org/puisi/' + thisPoem.fields.slug
-      return {
-        meta: [
-          // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-          { hid: 'og:title', name: 'og:title', content: thisPoem.fields.title },
-          { hid: 'title', name: 'title', content: thisPoem.fields.title },
-          { hid: 'description', name: 'description', content: thisPoem.fields.excerpt },
-          { hid: 'og:description', name: 'og:description', content: thisPoem.fields.excerpt },
-          { hid: 'og:image', name: 'og:image', content: thisPoem.fields.thumbnail.fields.file.url },
-          { hid: 'og:url', name: 'og:url', content: poemUrl }
-        ]
-      }
-    }
-  }
-}
+//       if (getPoem) {
+//         thisPoem = getPoem.items[0]
+//       }
+//       return {
+//         poem: getPoem.items[0],
+//         description: documentToHtmlString(getPoem.items[0].fields.description)
+//       }
+//     } catch (e) {
+//       // eslint-disable-next-line
+//       console.error(e)
+//     }
+//   },
+//   head () {
+//     if (thisPoem) {
+//       const poemUrl = 'https://imerz.imavi.org/puisi/' + thisPoem.fields.slug
+//       return {
+//         meta: [
+//           // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+//           { hid: 'og:title', name: 'og:title', content: thisPoem.fields.title },
+//           { hid: 'title', name: 'title', content: thisPoem.fields.title },
+//           { hid: 'description', name: 'description', content: thisPoem.fields.excerpt },
+//           { hid: 'og:description', name: 'og:description', content: thisPoem.fields.excerpt },
+//           { hid: 'og:image', name: 'og:image', content: thisPoem.fields.thumbnail.fields.file.url },
+//           { hid: 'og:url', name: 'og:url', content: poemUrl }
+//         ]
+//       }
+//     }
+//   }
+// }
 </script>

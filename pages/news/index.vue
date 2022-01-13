@@ -127,28 +127,28 @@
 <script>
 // import { createClient } from '~/plugins/contentful.js'
 
-const client = createClient()
+// const client = createClient()
 
-export default {
-  components: {
-  },
-  async asyncData ({ env }) {
-    try {
-      const getPosts = await client.getEntries({
-        content_type: 'blogPost',
-        order: '-fields.publishDate'
-      })
-      return {
-        posts: getPosts.items
-      }
-    } catch (e) {
-      // eslint-disable-next-line
-      console.error(e)
-    }
-  },
-  computed: {
-  },
-  mounted () {
-  }
-}
+// export default {
+//   components: {
+//   },
+//   async asyncData ({ env }) {
+//     try {
+//       const getPosts = await client.getEntries({
+//         content_type: 'blogPost',
+//         order: '-fields.publishDate'
+//       })
+//       return {
+//         posts: getPosts.items
+//       }
+//     } catch (e) {
+//       // eslint-disable-next-line
+//       console.error(e)
+//     }
+//   },
+//   computed: {
+//   },
+//   mounted () {
+//   }
+// }
 </script>

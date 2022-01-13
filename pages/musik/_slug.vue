@@ -30,46 +30,46 @@
 // import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 // import { createClient } from '~/plugins/contentful.js'
 
-const client = createClient()
+// const client = createClient()
 let thisSong
 
 // thisContent = documentToHtmlString( post.fields.content )
 
-export default {
-  async asyncData ({ env, params }) {
-    try {
-      const getSong = await client.getEntries({
-        content_type: 'song',
-        'fields.slug': params.slug
-      })
+// export default {
+//   async asyncData ({ env, params }) {
+//     try {
+//       const getSong = await client.getEntries({
+//         content_type: 'song',
+//         'fields.slug': params.slug
+//       })
 
-      if (getSong) {
-        thisSong = getSong.items[0]
-      }
-      return {
-        song: getSong.items[0],
-        description: documentToHtmlString(getSong.items[0].fields.description)
-      }
-    } catch (e) {
-      // eslint-disable-next-line
-      console.error(e)
-    }
-  },
-  head () {
-    if (thisSong) {
-      const songUrl = 'https://imerz.imavi.org/musik/' + thisSong.fields.slug
-      return {
-        meta: [
-          // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-          { hid: 'og:title', name: 'og:title', content: thisSong.fields.title },
-          { hid: 'title', name: 'title', content: thisSong.fields.title },
-          { hid: 'description', name: 'description', content: thisSong.fields.excerpt },
-          { hid: 'og:description', name: 'og:description', content: thisSong.fields.excerpt },
-          { hid: 'og:image', name: 'og:image', content: thisSong.fields.thumbnail.fields.file.url },
-          { hid: 'og:url', name: 'og:url', content: songUrl }
-        ]
-      }
-    }
-  }
-}
+//       if (getSong) {
+//         thisSong = getSong.items[0]
+//       }
+//       return {
+//         song: getSong.items[0],
+//         description: documentToHtmlString(getSong.items[0].fields.description)
+//       }
+//     } catch (e) {
+//       // eslint-disable-next-line
+//       console.error(e)
+//     }
+//   },
+//   head () {
+//     if (thisSong) {
+//       const songUrl = 'https://imerz.imavi.org/musik/' + thisSong.fields.slug
+//       return {
+//         meta: [
+//           // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+//           { hid: 'og:title', name: 'og:title', content: thisSong.fields.title },
+//           { hid: 'title', name: 'title', content: thisSong.fields.title },
+//           { hid: 'description', name: 'description', content: thisSong.fields.excerpt },
+//           { hid: 'og:description', name: 'og:description', content: thisSong.fields.excerpt },
+//           { hid: 'og:image', name: 'og:image', content: thisSong.fields.thumbnail.fields.file.url },
+//           { hid: 'og:url', name: 'og:url', content: songUrl }
+//         ]
+//       }
+//     }
+//   }
+// }
 </script>

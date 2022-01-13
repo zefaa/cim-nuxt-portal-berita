@@ -95,49 +95,49 @@
 <script>
 // import { createClient } from '~/plugins/contentful.js'
 
-const client = createClient()
+// const client = createClient()
 let CommonPodcasts
 let SuperPodcasts
 let waHref
 
-export default {
-  async asyncData ({ env, params }) {
-    try {
-      const pathUrl = 'https://imerz.imavi.org/podcast'
-      const Podcasts = await client.getEntry('7h8PFPxm0fimzWdejpvRdc')
-      const SpecialPodcasts = await client.getEntry('7zf0pCYg3MByIGPJu1xxBd')
-      if (Podcasts) {
-        CommonPodcasts = Podcasts.fields.jsonData
-        SuperPodcasts = SpecialPodcasts.fields.jsonData
-        waHref = 'https://wa.me/?text=%2A' + encodeURIComponent('Podcast Peziarah feat. Centrum Ivan Merz - Kursus Teologi Katolik Keuskupan Surabaya - IMAVI') + '%2A%0A_' + encodeURIComponent('Kumpulan Podcast Peziarah') + '_%0A%0A' + 'Baca%20lebih%20lanjut%20di%20website%20youcat%2Eid' + '%0A' + encodeURIComponent(pathUrl)
-      }
-      return {
-        waHref,
-        podcasts: CommonPodcasts,
-        specialPodcasts: SuperPodcasts
-      }
-    } catch (e) {
-      // eslint-disable-next-line
-      console.error(e)
-    }
-  },
-  head (params) {
-    if (CommonPodcasts) {
-      // eslint-disable-next-line
-      const thisUrl = 'https://imerz.imavi.org/podcast'
-      return {
-        meta: [
-          // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-          { hid: 'title', name: 'title', content: 'Podcast Peziarah feat. Centrum Ivan Merz - Kursus Teologi Katolik Keuskupan Surabaya - IMAVI' },
-          { hid: 'description', name: 'description', content: 'Podcast Peziarah feat. Centrum Ivan Merz - Kursus Teologi Katolik Keuskupan Surabaya - IMAVI' },
-          { hid: 'og:title', name: 'og:title', content: 'Podcast Peziarah feat. Centrum Ivan Merz - Kursus Teologi Katolik Keuskupan Surabaya - IMAVI' },
-          { hid: 'og:description', name: 'og:description', content: 'Podcast Peziarah feat. Centrum Ivan Merz - Kursus Teologi Katolik Keuskupan Surabaya - IMAVI' },
-          { hid: 'og:url', name: 'og:url', content: thisUrl }
-        ]
-      }
-    }
-  }
-}
+// export default {
+//   async asyncData ({ env, params }) {
+//     try {
+//       const pathUrl = 'https://imerz.imavi.org/podcast'
+//       const Podcasts = await client.getEntry('7h8PFPxm0fimzWdejpvRdc')
+//       const SpecialPodcasts = await client.getEntry('7zf0pCYg3MByIGPJu1xxBd')
+//       if (Podcasts) {
+//         CommonPodcasts = Podcasts.fields.jsonData
+//         SuperPodcasts = SpecialPodcasts.fields.jsonData
+//         waHref = 'https://wa.me/?text=%2A' + encodeURIComponent('Podcast Peziarah feat. Centrum Ivan Merz - Kursus Teologi Katolik Keuskupan Surabaya - IMAVI') + '%2A%0A_' + encodeURIComponent('Kumpulan Podcast Peziarah') + '_%0A%0A' + 'Baca%20lebih%20lanjut%20di%20website%20youcat%2Eid' + '%0A' + encodeURIComponent(pathUrl)
+//       }
+//       return {
+//         waHref,
+//         podcasts: CommonPodcasts,
+//         specialPodcasts: SuperPodcasts
+//       }
+//     } catch (e) {
+//       // eslint-disable-next-line
+//       console.error(e)
+//     }
+//   },
+//   head (params) {
+//     if (CommonPodcasts) {
+//       // eslint-disable-next-line
+//       const thisUrl = 'https://imerz.imavi.org/podcast'
+//       return {
+//         meta: [
+//           // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+//           { hid: 'title', name: 'title', content: 'Podcast Peziarah feat. Centrum Ivan Merz - Kursus Teologi Katolik Keuskupan Surabaya - IMAVI' },
+//           { hid: 'description', name: 'description', content: 'Podcast Peziarah feat. Centrum Ivan Merz - Kursus Teologi Katolik Keuskupan Surabaya - IMAVI' },
+//           { hid: 'og:title', name: 'og:title', content: 'Podcast Peziarah feat. Centrum Ivan Merz - Kursus Teologi Katolik Keuskupan Surabaya - IMAVI' },
+//           { hid: 'og:description', name: 'og:description', content: 'Podcast Peziarah feat. Centrum Ivan Merz - Kursus Teologi Katolik Keuskupan Surabaya - IMAVI' },
+//           { hid: 'og:url', name: 'og:url', content: thisUrl }
+//         ]
+//       }
+//     }
+//   }
+// }
 </script>
 
 <style lang="scss" scoped>

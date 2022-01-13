@@ -68,47 +68,47 @@
 <script>
 // import { createClient } from '~/plugins/contentful.js'
 
-const client = createClient()
+// const client = createClient()
 let streams
 let waHref
 
-export default {
-  async asyncData ({ env, params }) {
-    try {
-      const pathUrl = 'https://imerz.imavi.org/streaming'
-      const getStreams = await client.getEntry('5uHUST7gQlTHOwCdfwgY99')
-      if (getStreams) {
-        streams = getStreams.fields.jsonData
-        waHref = 'https://wa.me/?text=%2A' + encodeURIComponent('Daftar Streaming Pekan Suci 2020') + '%2A%0A_' + encodeURIComponent('Kumpulan Podcast Peziarah') + '_%0A%0A' + 'Baca%20lebih%20lanjut%20di%20website%20youcat%2Eid' + '%0A' + encodeURIComponent(pathUrl)
-      }
-      return {
-        waHref,
-        streamList: streams
-      }
-    } catch (e) {
-      // eslint-disable-next-line
-      console.error(e)
-    }
-  },
-  computed: {
-  },
-  head (params) {
-    if (streams) {
-      // eslint-disable-next-line
-      const thisUrl = 'https://imerz.imavi.org/streaming'
-      return {
-        meta: [
-          // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-          { hid: 'title', name: 'title', content: 'Daftar Streaming Pekan Suci 2020' },
-          { hid: 'description', name: 'description', content: 'Daftar Streaming Pekan Suci 2020' },
-          { hid: 'og:title', name: 'og:title', content: 'Daftar Streaming Pekan Suci 2020' },
-          { hid: 'og:description', name: 'og:description', content: 'Daftar Streaming Pekan Suci 2020' },
-          { hid: 'og:url', name: 'og:url', content: thisUrl }
-        ]
-      }
-    }
-  }
-}
+// export default {
+//   async asyncData ({ env, params }) {
+//     try {
+//       const pathUrl = 'https://imerz.imavi.org/streaming'
+//       const getStreams = await client.getEntry('5uHUST7gQlTHOwCdfwgY99')
+//       if (getStreams) {
+//         streams = getStreams.fields.jsonData
+//         waHref = 'https://wa.me/?text=%2A' + encodeURIComponent('Daftar Streaming Pekan Suci 2020') + '%2A%0A_' + encodeURIComponent('Kumpulan Podcast Peziarah') + '_%0A%0A' + 'Baca%20lebih%20lanjut%20di%20website%20youcat%2Eid' + '%0A' + encodeURIComponent(pathUrl)
+//       }
+//       return {
+//         waHref,
+//         streamList: streams
+//       }
+//     } catch (e) {
+//       // eslint-disable-next-line
+//       console.error(e)
+//     }
+//   },
+//   computed: {
+//   },
+//   head (params) {
+//     if (streams) {
+//       // eslint-disable-next-line
+//       const thisUrl = 'https://imerz.imavi.org/streaming'
+//       return {
+//         meta: [
+//           // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+//           { hid: 'title', name: 'title', content: 'Daftar Streaming Pekan Suci 2020' },
+//           { hid: 'description', name: 'description', content: 'Daftar Streaming Pekan Suci 2020' },
+//           { hid: 'og:title', name: 'og:title', content: 'Daftar Streaming Pekan Suci 2020' },
+//           { hid: 'og:description', name: 'og:description', content: 'Daftar Streaming Pekan Suci 2020' },
+//           { hid: 'og:url', name: 'og:url', content: thisUrl }
+//         ]
+//       }
+//     }
+//   }
+// }
 </script>
 
 <style lang="scss" scoped>

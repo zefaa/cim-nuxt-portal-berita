@@ -257,54 +257,54 @@
 <script>
 // import { createClient } from '~/plugins/contentful.js'
 
-const client = createClient()
+// const client = createClient()
 
-export default {
-  components: {
-  },
-  async asyncData ({ env }) {
-    try {
-      const getArticles = await client.getEntries({
-        content_type: 'article',
-        // 'fields.tags': 'DOCAT',
-        order: '-sys.createdAt',
-        limit: 4
-      })
-      const getJournals = await client.getEntries({
-        content_type: 'journal',
-        // 'fields.tags': 'DOCAT',
-        order: '-sys.createdAt',
-        limit: 4
-      })
-      const getNews = await client.getEntries({
-        content_type: 'blogPost',
-        // 'fields.tags': 'DOCAT',
-        order: '-sys.createdAt',
-        limit: 4
-      })
-      return {
-        articles: getArticles.items,
-        news: getNews.items,
-        journals: getJournals.items
-      }
-    } catch (e) {
-      // eslint-disable-next-line
-      console.error(e)
-    }
-  },
-  data () {
-    return {
-      quote1: require('@/assets/img/quotes-augustine-l.jpg')
-    }
-  },
-  computed: {
-    // orderedUsers () {
-    //   const sortedPosts = this.$_.sortBy(this.posts, 'datePublish')
-    //   return sortedPosts
-    // }
-  },
-  mounted () {
-  }
-}
+// export default {
+//   components: {
+//   },
+//   async asyncData ({ env }) {
+//     try {
+//       const getArticles = await client.getEntries({
+//         content_type: 'article',
+//         // 'fields.tags': 'DOCAT',
+//         order: '-sys.createdAt',
+//         limit: 4
+//       })
+//       const getJournals = await client.getEntries({
+//         content_type: 'journal',
+//         // 'fields.tags': 'DOCAT',
+//         order: '-sys.createdAt',
+//         limit: 4
+//       })
+//       const getNews = await client.getEntries({
+//         content_type: 'blogPost',
+//         // 'fields.tags': 'DOCAT',
+//         order: '-sys.createdAt',
+//         limit: 4
+//       })
+//       return {
+//         articles: getArticles.items,
+//         news: getNews.items,
+//         journals: getJournals.items
+//       }
+//     } catch (e) {
+//       // eslint-disable-next-line
+//       console.error(e)
+//     }
+//   },
+//   data () {
+//     return {
+//       quote1: require('@/assets/img/quotes-augustine-l.jpg')
+//     }
+//   },
+//   computed: {
+//     // orderedUsers () {
+//     //   const sortedPosts = this.$_.sortBy(this.posts, 'datePublish')
+//     //   return sortedPosts
+//     // }
+//   },
+//   mounted () {
+//   }
+// }
 // Catatan harian RD Kurdo Irianto tentang iman, harapan, kasih ditengah badai COVID-19
 </script>

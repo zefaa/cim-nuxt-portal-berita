@@ -98,31 +98,31 @@
 </style>
 
 <script>
-import { createClient } from '~/plugins/contentful.js'
+// import { createClient } from '~/plugins/contentful.js'
 
-const client = createClient()
+// const client = createClient()
 
-export default {
-  components: {
-  },
-  async asyncData ({ env }) {
-    try {
-      const getPosts = await client.getEntries({
-        content_type: 'prayer'
-        // 'fields.tag': 'DOCAT'
-      })
-      return {
-        posts: getPosts.items
-      }
-    } catch (e) {
-      // eslint-disable-next-line
-      console.error(e)
-    }
-  },
-  computed: {
-  },
-  mounted () {
-  }
-}
+// export default {
+//   components: {
+//   },
+//   async asyncData ({ env }) {
+//     try {
+//       const getPosts = await client.getEntries({
+//         content_type: 'prayer'
+//         // 'fields.tag': 'DOCAT'
+//       })
+//       return {
+//         posts: getPosts.items
+//       }
+//     } catch (e) {
+//       // eslint-disable-next-line
+//       console.error(e)
+//     }
+//   },
+//   computed: {
+//   },
+//   mounted () {
+//   }
+// }
 // Catatan RD Kurdo Irianto, sebuah suara harapan di tengah badai COVID-19
 </script>

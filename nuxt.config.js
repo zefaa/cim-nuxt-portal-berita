@@ -5,14 +5,7 @@ const env = {
   CTF_SPACE_ID: process.env.CTF_SPACE_ID,
   CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN
 }
-
-export default {
-  env,
-  ssr: false,
-  // mode: 'universal',
-  /*
-  ** Headers of the page
-  */
+const setting = {
   manifest: {
     short_name: 'cimnuxt',
     name: 'Centrum Ivan Merz',
@@ -66,7 +59,36 @@ export default {
     // },
 
   },
-  gtm: {
+   css: [
+  ],
+
+  components: true,
+  buildModules: [
+    // Doc: https://github.com/nuxt-community/eslint-module
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/vuetify',
+    '@nuxtjs/moment',
+    // '@nuxtjs/google-analytics',
+    '@nuxtjs/gtm'
+  ],
+  modules: [
+    // Doc: https://axios.nuxtjs.org/usage
+    '@nuxtjs/axios',
+    '@nuxtjs/pwa',
+    '@nuxtjs/gtm',
+    // Doc: https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/dotenv',
+    '@nuxtjs/markdownit'
+  ],
+  moment: {
+    defaultLocale: 'id',
+    locales: ['id']
+  },
+  plugins: [
+    { src: '~/plugins/underscore', ssr: false },
+    // '~/plugins/contentful'
+  ],
+   gtm: {
     id: 'G-0R4NMGYBN0', // Used as fallback if no runtime config is provided
     pageTracking: true,
     enabled: true
@@ -78,42 +100,20 @@ export default {
   /*
   ** Global CSS
   */
-  css: [
-  ],
+
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-    { src: '~/plugins/underscore', ssr: false },
-    // '~/plugins/contentful'
-  ],
+
   /*
   ** Nuxt.js dev-modules
   */
-  buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
-    '@nuxtjs/vuetify',
-    '@nuxtjs/moment',
-    // '@nuxtjs/google-analytics',
-    '@nuxtjs/gtm'
-  ],
-  moment: {
-    defaultLocale: 'id',
-    locales: ['id']
-  },
+
+
   /*
   ** Nuxt.js modules
   */
-  modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
-    '@nuxtjs/pwa',
-    '@nuxtjs/gtm',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
-    '@nuxtjs/markdownit'
-  ],
+
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
@@ -162,8 +162,97 @@ export default {
     }
   },
   generate: {
-    async routes () {
-      return await getEverything()
+     async routes (callback) {
+      let cimUrl = 'http://localhost:3005/cim/'
+      let imaviUrl = 'http://localhost:3005/imavi/'
+      if (useLocal === 'false') {
+        cimUrl = 'https://api.imavi.org/cim/'
+        imaviUrl = 'https://api.imavi.org/imavi/'
+      }
+      const allArticles = await axios.get(imaviUrl + 'articles/get-all', {
+        headers: {
+          Id: process.env.APP_ID,
+          Secret: process.env.APP_SECRET,
+          Partner: process.env.PARTNER
+        }
+      }).then((res) => {
+        return res.data
+      }).catch(callback)
+
+      const allNews = await axios.get(imaviUrl + 'news/get-all', {
+        headers: {
+          Id: process.env.APP_ID,
+          Secret: process.env.APP_SECRET,
+          Partner: process.env.PARTNER
+        }
+      }).then((res) => {
+        return res.data
+      }).catch(callback)
+
+      const routeList =
+      [
+        {
+          route: '/articles/list',
+          payload: allArticles
+        },
+        {
+          route: '/news/list',
+          payload: allNews
+        }
+      ]
+
+      const ujianSingle = await axios.get(cimUrl + 'ujians/view/616634a20ed367297d87e26b', {
+        headers: {
+          Id: process.env.APP_ID,
+          Secret: process.env.APP_SECRET
+        }
+      }).then((res) => {
+        const payload = res.data
+        return {
+          route: '/member/ujians/do',
+          payload
+        }
+      }).catch(callback)
+      routeList.push(ujianSingle)
+
+      const coursesAll = await axios.get(cimUrl + 'courses/get-all', {
+        headers: {
+          Id: process.env.APP_ID,
+          Secret: process.env.APP_SECRET,
+          Partner: process.env.PARTNER
+        }
+      }).then((res) => {
+        const payload = res.data
+        const innerRoutes = [{
+          route: '/courses/list',
+          payload
+        }]
+        payload.forEach((subElement) => {
+          innerRoutes.push({
+            route: '/courses/' + subElement.slug,
+            payload: subElement
+          })
+        })
+        return innerRoutes
+      }).catch(callback)
+      coursesAll.forEach((element) => {
+        routeList.push(element)
+      })
+
+      allArticles.forEach((element) => {
+        routeList.push({
+          route: '/articles/' + element.slug,
+          payload: element
+        })
+      })
+
+      allNews.forEach((element) => {
+        routeList.push({
+          route: '/news/' + element.slug,
+          payload: element
+        })
+      })
+      callback(null, routeList)
     }
   }
 }

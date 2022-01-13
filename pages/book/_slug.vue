@@ -90,48 +90,48 @@
 // import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 // import { createClient } from '~/plugins/contentful.js'
 
-const client = createClient()
+// const client = createClient()
 let thisbook
 let waHref
 
-export default {
-  async asyncData ({ env, params }) {
-    try {
-      const pathUrl = 'https://imerz.imavi.org/book/' + params.slug
-      const thisPost = await client.getEntries({
-        content_type: 'book',
-        'fields.slug': params.slug
-      })
+// export default {
+//   async asyncData ({ env, params }) {
+//     try {
+//       const pathUrl = 'https://imerz.imavi.org/book/' + params.slug
+//       const thisPost = await client.getEntries({
+//         content_type: 'book',
+//         'fields.slug': params.slug
+//       })
 
-      if (thisPost) {
-        thisbook = thisPost.items[0]
-        waHref = 'https://wa.me/?text=%2A' + encodeURIComponent(thisbook.fields.title) + '%2A%0A_' + encodeURIComponent(thisbook.fields.excerpt) + '_%0A%0A' + 'Baca%20lebih%20lanjut%20di%20website%20youcat%2Eid' + '%0A' + encodeURIComponent(pathUrl)
-      }
-      return {
-        waHref,
-        book: thisPost.items[0],
-        content: documentToHtmlString(thisPost.items[0].fields.descriptionRichText)
-      }
-    } catch (e) {
-      // eslint-disable-next-line
-      console.error(e)
-    }
-  },
-  head (params) {
-    if (thisbook) {
-      const thisUrl = 'https://imerz.imavi.org/book/' + params.slug
-      return {
-        meta: [
-          // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-          { hid: 'title', name: 'title', content: thisbook.fields.title },
-          { hid: 'description', name: 'description', content: thisbook.fields.excerpt },
-          { hid: 'og:title', name: 'og:title', content: thisbook.fields.title },
-          { hid: 'og:description', name: 'og:description', content: thisbook.fields.excerpt },
-          { hid: 'og:image', name: 'og:image', content: thisbook.fields.thumbnail.fields.file.url },
-          { hid: 'og:url', name: 'og:url', content: thisUrl }
-        ]
-      }
-    }
-  }
-}
+//       if (thisPost) {
+//         thisbook = thisPost.items[0]
+//         waHref = 'https://wa.me/?text=%2A' + encodeURIComponent(thisbook.fields.title) + '%2A%0A_' + encodeURIComponent(thisbook.fields.excerpt) + '_%0A%0A' + 'Baca%20lebih%20lanjut%20di%20website%20youcat%2Eid' + '%0A' + encodeURIComponent(pathUrl)
+//       }
+//       return {
+//         waHref,
+//         book: thisPost.items[0],
+//         content: documentToHtmlString(thisPost.items[0].fields.descriptionRichText)
+//       }
+//     } catch (e) {
+//       // eslint-disable-next-line
+//       console.error(e)
+//     }
+//   },
+//   head (params) {
+//     if (thisbook) {
+//       const thisUrl = 'https://imerz.imavi.org/book/' + params.slug
+//       return {
+//         meta: [
+//           // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+//           { hid: 'title', name: 'title', content: thisbook.fields.title },
+//           { hid: 'description', name: 'description', content: thisbook.fields.excerpt },
+//           { hid: 'og:title', name: 'og:title', content: thisbook.fields.title },
+//           { hid: 'og:description', name: 'og:description', content: thisbook.fields.excerpt },
+//           { hid: 'og:image', name: 'og:image', content: thisbook.fields.thumbnail.fields.file.url },
+//           { hid: 'og:url', name: 'og:url', content: thisUrl }
+//         ]
+//       }
+//     }
+//   }
+// }
 </script>

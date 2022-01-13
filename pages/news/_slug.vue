@@ -68,47 +68,47 @@
 <script>
 // import { createClient } from '~/plugins/contentful.js'
 
-const client = createClient()
+// const client = createClient()
 let thisnews
 let waHref
 
-export default {
-  async asyncData ({ env, params }) {
-    try {
-      const pathUrl = 'https://imerz.imavi.org/news/' + params.slug
-      const thisPost = await client.getEntries({
-        content_type: 'blogPost',
-        'fields.slug': params.slug
-      })
+// export default {
+//   async asyncData ({ env, params }) {
+//     try {
+//       const pathUrl = 'https://imerz.imavi.org/news/' + params.slug
+//       const thisPost = await client.getEntries({
+//         content_type: 'blogPost',
+//         'fields.slug': params.slug
+//       })
 
-      if (thisPost) {
-        thisnews = thisPost.items[0]
-        waHref = 'https://wa.me/?text=%2A' + encodeURIComponent(thisnews.fields.title) + '%2A%0A_' + encodeURIComponent(thisnews.fields.excerpt) + '_%0A%0A' + 'Baca%20lebih%20lanjut%20di%20website%20youcat%2Eid' + '%0A' + encodeURIComponent(pathUrl)
-      }
-      return {
-        waHref,
-        news: thisPost.items[0]
-      }
-    } catch (e) {
-      // eslint-disable-next-line
-      console.error(e)
-    }
-  },
-  head (params) {
-    if (thisnews) {
-      const thisUrl = 'https://imerz.imavi.org/news/' + params.slug
-      return {
-        meta: [
-          // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-          { hid: 'title', name: 'title', content: thisnews.fields.title },
-          { hid: 'description', name: 'description', content: thisnews.fields.excerpt },
-          { hid: 'og:title', name: 'og:title', content: thisnews.fields.title },
-          { hid: 'og:description', name: 'og:description', content: thisnews.fields.excerpt },
-          { hid: 'og:image', name: 'og:image', content: thisnews.fields.heroImage.fields.file.url },
-          { hid: 'og:url', name: 'og:url', content: thisUrl }
-        ]
-      }
-    }
-  }
-}
+//       if (thisPost) {
+//         thisnews = thisPost.items[0]
+//         waHref = 'https://wa.me/?text=%2A' + encodeURIComponent(thisnews.fields.title) + '%2A%0A_' + encodeURIComponent(thisnews.fields.excerpt) + '_%0A%0A' + 'Baca%20lebih%20lanjut%20di%20website%20youcat%2Eid' + '%0A' + encodeURIComponent(pathUrl)
+//       }
+//       return {
+//         waHref,
+//         news: thisPost.items[0]
+//       }
+//     } catch (e) {
+//       // eslint-disable-next-line
+//       console.error(e)
+//     }
+//   },
+//   head (params) {
+//     if (thisnews) {
+//       const thisUrl = 'https://imerz.imavi.org/news/' + params.slug
+//       return {
+//         meta: [
+//           // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+//           { hid: 'title', name: 'title', content: thisnews.fields.title },
+//           { hid: 'description', name: 'description', content: thisnews.fields.excerpt },
+//           { hid: 'og:title', name: 'og:title', content: thisnews.fields.title },
+//           { hid: 'og:description', name: 'og:description', content: thisnews.fields.excerpt },
+//           { hid: 'og:image', name: 'og:image', content: thisnews.fields.heroImage.fields.file.url },
+//           { hid: 'og:url', name: 'og:url', content: thisUrl }
+//         ]
+//       }
+//     }
+//   }
+// }
 </script>
