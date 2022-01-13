@@ -20,7 +20,7 @@
     "global": "^4.4.0",
     "netlify-cli": "^3.38.10",
     "node-sass": "^6.0.0",
-    "nuxt": "^2.15.7",
+    "nuxt": "^2.15.8",
     "sass-loader": "^10",
     "tiptap-vuetify": "^2.24.0",
     "vue-awesome-countdown": "^1.1.4",
