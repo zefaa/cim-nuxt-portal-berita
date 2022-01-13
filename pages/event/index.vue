@@ -16,18 +16,18 @@
       <template v-for="(item, index) in posts">
         <v-list-item
           :key="index"
-          :to="'/event/' + item.fields.slug"
+          :to="'/event/' + item.slug"
         >
           <v-list-item-avatar>
-            <v-img :src="item.fields.thumbnail.fields.file.url + '?fm=jpg&fl=progressive'" />
+            <v-img :src="item.thumbnail.file.url + '?fm=jpg&fl=progressive'" />
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-subtitle
               class="card-date"
-              v-text="$moment(item.fields.date).format('D MMMM YYYY')"
+              v-text="$moment(item.date).format('D MMMM YYYY')"
             />
-            <v-list-item-title v-html="item.fields.title" />
-            <v-list-item-subtitle v-html="item.fields.excerpt" />
+            <v-list-item-title v-html="item.title" />
+            <v-list-item-subtitle v-html="item.excerpt" />
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -149,30 +149,21 @@
 </style>
 
 <script>
-// import { createClient } from '~/plugins/contentful.js'
+export default {
+  data: () => ({
+    posts: []
+  }),
 
-// const client = createClient()
+  async fetch () {
+    let payload = this.$nuxt.context.payload
+    console.log(payload)
+    if (!payload) {
+      payload = await this.$axios.$post('/.netlify/functions/imavi-list', {
+        type: 'events'
+      })
+    }
+    this.posts = payload
 
-// export default {
-//   components: {
-//   },
-//   async asyncData ({ env }) {
-//     try {
-//       const getPosts = await client.getEntries({
-//         content_type: 'event',
-//         order: '-fields.date'
-//       })
-//       return {
-//         posts: getPosts.items
-//       }
-//     } catch (e) {
-//       // eslint-disable-next-line
-//       console.error(e)
-//     }
-//   },
-//   computed: {
-//   },
-//   mounted () {
-//   }
-// }
+  }
+}
 </script>

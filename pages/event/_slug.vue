@@ -1,19 +1,18 @@
 <template>
   <v-container class="page page-event-detail">
     <h1 class="page-title">
-      {{ event.fields.title }}
+      {{ pageData.title }}
     </h1>
     <div class="date text-right">
-      {{ $moment(event.fields.date).format('D MMMM YYYY') }}
+      {{ $moment(pageData.date).format('D MMMM YYYY') }}
     </div>
     <div class="content">
       <v-img
-        :src="event.fields.thumbnail.fields.file.url + '?fm=jpg&fl=progressive'"
-        :alt="event.fields.thumbnail.fields.file.fileName"
+        
         class="event-image"
         cover
       />
-      <span v-html="$md.render(event.fields.body)" />
+      <span v-html="$md.render(pageData.body)" />
     </div>
     <v-row
       dense
@@ -24,7 +23,7 @@
         class="purchase-button text-right"
       >
         <v-btn
-          :href="event.fields.registerUrl"
+          :href="pageData.registerUrl"
           color="primary"
           large
           ripple
@@ -93,49 +92,20 @@
 </style>
 
 <script>
-// import { createClient } from '~/plugins/contentful.js'
-
-// const client = createClient()
-let thisevent
-let waHref
-
-// export default {
-//   async asyncData ({ env, params }) {
-//     try {
-//       const pathUrl = 'https://imerz.imavi.org/event/' + params.slug
-//       const thisPost = await client.getEntries({
-//         content_type: 'event',
-//         'fields.slug': params.slug
-//       })
-
-//       if (thisPost) {
-//         thisevent = thisPost.items[0]
-//         waHref = 'https://wa.me/?text=%2A' + encodeURIComponent(thisevent.fields.title) + '%2A%0A_' + encodeURIComponent(thisevent.fields.excerpt) + '_%0A%0A' + 'Baca%20lebih%20lanjut%20di%20website%20youcat%2Eid' + '%0A' + encodeURIComponent(pathUrl)
-//       }
-//       return {
-//         waHref,
-//         event: thisPost.items[0]
-//       }
-//     } catch (e) {
-//       // eslint-disable-next-line
-//       console.error(e)
-//     }
-//   },
-//   head (params) {
-//     if (thisevent) {
-//       const thisUrl = 'https://imerz.imavi.org/event/' + params.slug
-//       return {
-//         meta: [
-//           // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-//           { hid: 'title', name: 'title', content: thisevent.fields.title },
-//           { hid: 'description', name: 'description', content: thisevent.fields.excerpt },
-//           { hid: 'og:title', name: 'og:title', content: thisevent.fields.title },
-//           { hid: 'og:description', name: 'og:description', content: thisevent.fields.excerpt },
-//           { hid: 'og:image', name: 'og:image', content: thisevent.fields.thumbnail.fields.file.url },
-//           { hid: 'og:url', name: 'og:url', content: thisUrl }
-//         ]
-//       }
-//     }
-//   }
-// }
+export default {
+  data: () => ({
+    pageData: {},
+    type: 'events'
+  }),
+  async fetch () {
+    let payload = this.$nuxt.context.payload
+    if (!payload) {
+      payload = await this.$axios.$post('/.netlify/functions/imavi-detail', {
+        type: this.type,
+        code: this.$nuxt.context.params.slug
+      })
+    }
+    this.pageData = payload
+  }
+}
 </script>
