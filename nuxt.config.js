@@ -1,26 +1,21 @@
+import colors from 'vuetify/es5/util/colors'
 import dotenv from 'dotenv'
+const axios = require('axios')
+
 dotenv.config()
 
-const env = {
-  CTF_SPACE_ID: process.env.CTF_SPACE_ID,
-  CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN
+const useLocal = process.env.USE_LOCAL
+
+const cimColors = {
+  darkgreen: '#0B9948',
+  lightgreen: '#A8CC38',
+  maroon: '#A85D40',
+  orange: '#ED8122',
+  white: '#FFFFFF'
 }
+
 const setting = {
-  manifest: {
-    short_name: 'cimnuxt',
-    name: 'Centrum Ivan Merz',
-    icons: [
-      {
-        src: '/icons/apple-touch-icon-120x120.png',
-        type: 'image/png',
-        sizes: '120x120'
-      }
-    ],
-    start_url: '/?utm_source=homescreen',
-    background_color: '#FFFFFF',
-    theme_color: '#ffffff',
-    display: 'standalone'
-  },
+  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Centrum Ivan Merz - Kursus Teologi Katolik',
     htmlAttrs: {
@@ -59,110 +54,77 @@ const setting = {
     // },
 
   },
-   css: [
+
+  // Global CSS: https://go.nuxtjs.dev/config-css
+  css: [
+    // '@/assets/main.scss',
+    // '@/assets/_mq.scss'
   ],
 
+  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
+
+  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
+  // Doc: https://github.com/nuxt-community/eslint-module
+    // '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
     '@nuxtjs/moment',
     // '@nuxtjs/google-analytics',
-    '@nuxtjs/gtm'
+    // '@nuxtjs/gtm'
   ],
+
+  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
+    'cookie-universal-nuxt',
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    '@nuxtjs/gtm',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
-    '@nuxtjs/markdownit'
+    '@nuxtjs/dotenv'
   ],
-  moment: {
-    defaultLocale: 'id',
-    locales: ['id']
-  },
+
   plugins: [
-    { src: '~/plugins/underscore', ssr: false },
-    // '~/plugins/contentful'
+    // '~/plugins/both/bu.js',
+    // '~/plugins/client/cu.client.js',
+    // '~/plugins/client/format-date.js',
+    // '~/plugins/TiptapVuetify',
+    // '~/plugins/Countdown'
   ],
-   gtm: {
-    id: 'G-0R4NMGYBN0', // Used as fallback if no runtime config is provided
-    pageTracking: true,
-    enabled: true
-  },
-  /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: '#fff' },
-  /*
-  ** Global CSS
-  */
 
-  /*
-  ** Plugins to load before mounting the App
-  */
-
-  /*
-  ** Nuxt.js dev-modules
-  */
-
-
-  /*
-  ** Nuxt.js modules
-  */
-
-  /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
-  styleResources: {
-    scss: [
-      'assets/scss/_colors.scss',
-      'assets/scss/_mixins.scss',
-      'assets/scss/global.scss'
-    ]
-  },
-  markdownit: {
-    injected: true,
-    html: true
-  },
-  axios: {
-  },
-  /*
-  ** vuetify module configuration
-  ** https://github.com/nuxt-community/vuetify-module
-  */
+  // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
+      dark: false,
       themes: {
+        dark: {
+          primary: colors.green.darken2,
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
+        },
         light: {
-          primary: '#c0e24b',
-          secondary: '#ffc107',
-          accent: '#65b4e4',
-          error: '#b71f3b',
-          warning: '#ed9822',
-          info: '#00bcd4',
-          success: '#8bc34a'
+          primary: '#0B9948',
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
         }
       }
     }
   },
-  /*
-  ** Build configuration
-  */
+
+  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    /*
-    ** You can extend webpack config here
-    */
-    extend (config, ctx) {
-    }
+    transpile: ['vuetify/lib', 'tiptap-vuetify']
   },
+  target: 'static',
   generate: {
-     async routes (callback) {
+    async routes (callback) {
       let cimUrl = 'http://localhost:3005/cim/'
       let imaviUrl = 'http://localhost:3005/imavi/'
       if (useLocal === 'false') {
@@ -254,5 +216,18 @@ const setting = {
       })
       callback(null, routeList)
     }
+
   }
 }
+
+let baseURL
+if (useLocal === 'true') {
+  baseURL = 'http://localhost:8888'
+} else {
+  baseURL = ''
+}
+setting.axios = {
+  baseURL
+}
+
+export default setting
