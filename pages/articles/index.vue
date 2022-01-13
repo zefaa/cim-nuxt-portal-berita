@@ -3,25 +3,24 @@
     column
     justify-center
     align-center
-    class="page page-article-list"
+    class="page page-articles-list"
   >
     <v-row
-      class="article-list"
+      class="articles-list"
     >
       <v-col
         v-for="post in posts"
-        :key="post.fields.slug"
+        :key="post.slug"
         xs="12"
         sm="12"
         md="6"
         lg="4"
-        class="article-list-item"
+        class="articles-list-item"
       >
-        <n-link :to="'/article/' + post.fields.slug">
+        <n-link :to="'/articles/' + post.slug">
           <v-card>
             <v-img
-              :src="post.fields.heroImage.fields.file.url + '?fm=jpg&fl=progressive'"
-              :alt="post.fields.heroImage.fields.file.fileName"
+
               class="white--text align-end"
               gradient="to bottom, rgba(255,255,255,.1), rgba(255,255,255,.9)"
               height="270px"
@@ -30,11 +29,11 @@
             >
               <v-card-title
                 class="card-title"
-                v-text="post.fields.title"
+                v-text="post.title"
               />
               <v-card-subtitle
                 class="card-excerpt"
-                v-text="post.fields.excerpt"
+                v-text="post.excerpt"
               />
             </v-img>
           </v-card>
@@ -81,10 +80,10 @@
   a {
     text-decoration: none;
   }
-  .article-list {
+  .articles-list {
     width: 100%;
   }
-  .article-list-item {
+  .articles-list-item {
     padding: 1rem;
     .card-title {
       font-weight: 700;
@@ -118,6 +117,24 @@
 </style>
 
 <script>
+
+export default {
+  data: () => ({
+    posts: []
+  }),
+
+  async fetch () {
+    let payload = this.$nuxt.context.payload
+    console.log(payload)
+    if (!payload) {
+      payload = await this.$axios.$post('/.netlify/functions/imavi-list', {
+        type: 'articles'
+      })
+    }
+    this.posts = payload
+
+  }
+}
 // import { createClient } from '~/plugins/contentful.js'
 
 // const client = createClient()
@@ -128,7 +145,7 @@
 //   async asyncData ({ env }) {
 //     try {
 //       const getPosts = await client.getEntries({
-//         content_type: 'article',
+//         content_type: 'articles',
 //         order: '-sys.createdAt'
 //       })
 //       return {

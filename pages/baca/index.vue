@@ -58,24 +58,24 @@
       </div>
     </section>
     <section
-      id="section-article"
-      class="section-article-list"
+      id="section-articles"
+      class="section-articles-list"
     >
       <div class="section-inner">
         <h2 class="section-title">
           Artikel Terkini
         </h2>
         <v-row
-          class="article-list"
+          class="articles-list"
         >
           <v-col
-            v-for="post in articles"
+            v-for="post in articless"
             :key="post.fields.slug"
             cols="12"
             sm="6"
-            class="article-list-item"
+            class="articles-list-item"
           >
-            <n-link :to="'/article/' + post.fields.slug">
+            <n-link :to="'/articles/' + post.fields.slug">
               <v-card>
                 <v-img
                   :src="post.fields.heroImage.fields.file.url + '?fm=jpg&fl=progressive'"
@@ -98,9 +98,9 @@
               </v-card>
             </n-link>
           </v-col>
-          <v-col class="article-list-item read-more">
+          <v-col class="articles-list-item read-more">
             <v-btn
-              to="/article"
+              to="/articles"
               color="primary"
               class="text-center"
             >
@@ -215,11 +215,11 @@
   a {
     text-decoration: none;
   }
-  .journal-list, .article-list, .news-list {
+  .journal-list, .articles-list, .news-list {
     width: 100%;
     margin: 0 auto;
   }
-  .journal-item, .article-item, .news-item {
+  .journal-item, .articles-item, .news-item {
     padding: 1rem;
     margin-bottom: 0.5rem;
   }
@@ -264,8 +264,8 @@
 //   },
 //   async asyncData ({ env }) {
 //     try {
-//       const getArticles = await client.getEntries({
-//         content_type: 'article',
+//       const getarticless = await client.getEntries({
+//         content_type: 'articles',
 //         // 'fields.tags': 'DOCAT',
 //         order: '-sys.createdAt',
 //         limit: 4
@@ -283,7 +283,7 @@
 //         limit: 4
 //       })
 //       return {
-//         articles: getArticles.items,
+//         articless: getarticless.items,
 //         news: getNews.items,
 //         journals: getJournals.items
 //       }

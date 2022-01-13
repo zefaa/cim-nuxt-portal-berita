@@ -2,7 +2,7 @@
   <div>
     spesial covid 19
     jurnal
-    article
+    articles
     activities
     doa
   </div>

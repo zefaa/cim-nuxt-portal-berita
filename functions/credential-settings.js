@@ -1,4 +1,4 @@
-const localRoute = 'http://localhost:3005'
+const localRoute = 'https://api.imavi.org'
 
 module.exports = {
   wrapUrl (path) {

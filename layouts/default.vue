@@ -99,9 +99,9 @@
         </v-col> -->
       </v-row>
     </v-app-bar>
-    <v-content id="main-layout-content">
+    <v-main id="main-layout-content">
       <nuxt />
-    </v-content>
+    </v-main>
     <v-navigation-drawer
       v-model="rightDrawer"
       :right="right"
@@ -714,7 +714,7 @@ export default {
           icon: 'mdi-book-open',
           platform: true,
           title: 'Artikel',
-          to: '/article'
+          to: '/articles'
         },
         {
           icon: 'mdi-book-open',
@@ -832,8 +832,8 @@ export default {
           children: [
             {
               icon: 'mdi-file-document-edit',
-              title: 'Article',
-              to: '/article'
+              title: 'articles',
+              to: '/articles'
             },
             {
               icon: 'mdi-notebook',

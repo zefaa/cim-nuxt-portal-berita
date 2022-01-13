@@ -125,13 +125,13 @@ const setting = {
   target: 'static',
   generate: {
     async routes (callback) {
-      let cimUrl = 'http://localhost:3005/cim/'
-      let imaviUrl = 'http://localhost:3005/imavi/'
+      let cimUrl = 'https://api.imavi.org/cim/'
+      let imaviUrl = 'https://api.imavi.org/imavi/'
       if (useLocal === 'false') {
         cimUrl = 'https://api.imavi.org/cim/'
         imaviUrl = 'https://api.imavi.org/imavi/'
       }
-      const allArticles = await axios.get(imaviUrl + 'articles/get-all', {
+      const allarticless = await axios.get(imaviUrl + 'articless/get-all', {
         headers: {
           Id: process.env.APP_ID,
           Secret: process.env.APP_SECRET,
@@ -154,8 +154,8 @@ const setting = {
       const routeList =
       [
         {
-          route: '/articles/list',
-          payload: allArticles
+          route: '/articless/list',
+          payload: allarticless
         },
         {
           route: '/news/list',
@@ -163,47 +163,9 @@ const setting = {
         }
       ]
 
-      const ujianSingle = await axios.get(cimUrl + 'ujians/view/616634a20ed367297d87e26b', {
-        headers: {
-          Id: process.env.APP_ID,
-          Secret: process.env.APP_SECRET
-        }
-      }).then((res) => {
-        const payload = res.data
-        return {
-          route: '/member/ujians/do',
-          payload
-        }
-      }).catch(callback)
-      routeList.push(ujianSingle)
-
-      const coursesAll = await axios.get(cimUrl + 'courses/get-all', {
-        headers: {
-          Id: process.env.APP_ID,
-          Secret: process.env.APP_SECRET,
-          Partner: process.env.PARTNER
-        }
-      }).then((res) => {
-        const payload = res.data
-        const innerRoutes = [{
-          route: '/courses/list',
-          payload
-        }]
-        payload.forEach((subElement) => {
-          innerRoutes.push({
-            route: '/courses/' + subElement.slug,
-            payload: subElement
-          })
-        })
-        return innerRoutes
-      }).catch(callback)
-      coursesAll.forEach((element) => {
-        routeList.push(element)
-      })
-
-      allArticles.forEach((element) => {
+      allarticless.forEach((element) => {
         routeList.push({
-          route: '/articles/' + element.slug,
+          route: '/articless/' + element.slug,
           payload: element
         })
       })

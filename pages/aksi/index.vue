@@ -21,7 +21,7 @@
               large
               block
               color="primary"
-              href="#section-article"
+              href="#section-articles"
             >
               Pelajari
             </v-btn>
@@ -183,7 +183,7 @@
     <section class="section-quotes">
       <img :src="kolbeq" alt="Act">
     </section>
-    <section id="section-article" class="section-article">
+    <section id="section-articles" class="section-articles">
       <div class="section-inner">
         <h2 class="section-title">
           Artikel-artikel
@@ -194,13 +194,13 @@
           class="reading-list"
         >
           <v-col
-            v-for="post in articles"
+            v-for="post in articless"
             :key="post.fields.slug"
             cols="12"
             sm="6"
             class="news-list-item"
           >
-            <n-link :to="'/article/' + post.fields.slug">
+            <n-link :to="'/articles/' + post.fields.slug">
               <v-card>
                 <v-img
                   :src="post.fields.heroImage.fields.file.url + '?fm=jpg&fl=progressive'"
@@ -225,7 +225,7 @@
 
             <div class="read-more text-center" style="margin-top: 1rem;">
               <v-btn
-                to="/article"
+                to="/articles"
                 class="text-center"
                 color="primary"
               >
@@ -349,7 +349,7 @@
   a {
     text-decoration: none;
   }
-  .journal-list, .article-list, .news-list {
+  .journal-list, .articles-list, .news-list {
     width: 100%;
   }
   .action-list {
@@ -363,7 +363,7 @@
       margin-bottom: 1rem;
     }
   }
-  .journal-item, .article-item, .news-item {
+  .journal-item, .articles-item, .news-item {
     padding: 1rem;
     margin-bottom: 0.5rem;
   }
@@ -470,8 +470,8 @@ let todayJournal
 //         // skip: 1,
 //         limit: 3
 //       })
-//       const getArticles = await client.getEntries({
-//         content_type: 'article',
+//       const getarticless = await client.getEntries({
+//         content_type: 'articles',
 //         // 'fields.tags': 'asg',
 //         order: '-sys.createdAt',
 //         limit: 4
@@ -489,7 +489,7 @@ let todayJournal
 //       const restJournals = getJournals.items.slice(1)
 //       return {
 //         journals: restJournals,
-//         articles: getArticles.items,
+//         articless: getarticless.items,
 //         lifeActions: getActions.items,
 //         prayers: getPrayers.items,
 //         docatq: require('@/assets/img/quotes-teresa.jpg'),

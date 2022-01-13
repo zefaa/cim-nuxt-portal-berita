@@ -11,18 +11,18 @@
       </h2>
       <v-icon>mdi-home</v-icon>
       <v-row
-        class="article-list"
+        class="articles-list"
       >
         <v-col
-          v-for="post in articles"
+          v-for="post in articless"
           :key="post.fields.slug"
           xs="12"
           sm="12"
           md="4"
           lg="4"
-          class="article-list-item"
+          class="articles-list-item"
         >
-          <n-link :to="'/article/' + post.fields.slug">
+          <n-link :to="'/articles/' + post.fields.slug">
             <v-card>
               <v-img
                 :src="post.fields.heroImage.fields.file.url + '?fm=jpg&fl=progressive'"
@@ -49,7 +49,7 @@
       <div class="view-more text-right">
         <v-btn
           color="primary"
-          :to="'/article/'"
+          :to="'/articles/'"
         >
           Lihat Semua Artikel
         </v-btn>
@@ -167,19 +167,19 @@
         justify="center"
       >
         <v-col
-          v-for="post in news"
-          :key="post.fields.slug"
+          v-for="(post, index) in news"
+          :key="index"
           xs="12"
           sm="12"
           md="4"
           lg="4"
-          class="article-list-item"
+          class="articles-list-item"
         >
-          <n-link :to="'/news/' + post.fields.slug">
+          <n-link :to="'/news/' + post.slug">
             <v-card>
               <v-img
-                :src="post.fields.heroImage.fields.file.url + '?fm=jpg&fl=progressive'"
-                :alt="post.fields.heroImage.fields.file.fileName"
+                :src="post.slug + '?fm=jpg&fl=progressive'"
+                :alt="post.slug"
                 class="white--text align-end"
                 gradient="to bottom, rgba(255,255,255,.5), rgba(255,255,255,1)"
                 height="270px"
@@ -188,11 +188,11 @@
               >
                 <v-card-title
                   class="card-title"
-                  v-text="post.fields.title"
+                  v-text="post.title"
                 />
                 <v-card-subtitle
                   class="card-excerpt"
-                  v-text="post.fields.excerpt"
+                  :v-text="post.excerpt"
                 />
               </v-img>
             </v-card>
@@ -758,12 +758,32 @@ const vpositions = [
 ]
 
 // const today = moment().format('D-MM-YYYY')
+export default {
+  data: () => ({
+    dataList: [],
+    news : [],
+    sponsors : [],
+    articless : []
+  }),
+
+  async fetch () {
+    let payload = this.$nuxt.context.payload
+    if (!payload) {
+      payload = await this.$axios.$post('/.netlify/functions/featured', {
+        type: 'articles'
+      })
+    }
+    console.log(payload.length)
+    this.news = payload
+
+  }
+}
 
 // export default {
 //   async asyncData ({ env }) {
 //     try {
-//       const getArticles = await client.getEntries({
-//         content_type: 'article',
+//       const getarticless = await client.getEntries({
+//         content_type: 'articles',
 //         'fields.featured': true,
 //         order: '-sys.createdAt',
 //         limit: 3
@@ -792,7 +812,7 @@ const vpositions = [
 
 //       const todayPrayer = getPrayers.items[0]
 //       return {
-//         articles: getArticles.items,
+//         articless: getarticless.items,
 //         journals: getJournals.items,
 //         news: getNews.items,
 //         sponsors: getSponsors.items,
