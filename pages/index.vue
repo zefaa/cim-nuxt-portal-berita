@@ -167,19 +167,19 @@
         justify="center"
       >
         <v-col
-          v-for="(post, index) in news"
-          :key="index"
+          v-for="post in news"
+          :key="post.slug"
           xs="12"
           sm="12"
           md="4"
           lg="4"
-          class="articles-list-item"
+          class="news-list-item"
         >
           <n-link :to="'/news/' + post.slug">
-            <v-card>
+             <v-card>
               <v-img
-                :src="post.slug + '?fm=jpg&fl=progressive'"
-                :alt="post.slug"
+                :src="post.imageLink"
+                :alt="post.imageLink"
                 class="white--text align-end"
                 gradient="to bottom, rgba(255,255,255,.5), rgba(255,255,255,1)"
                 height="270px"
@@ -192,7 +192,7 @@
                 />
                 <v-card-subtitle
                   class="card-excerpt"
-                  :v-text="post.excerpt"
+                  v-text="post.excerpt"
                 />
               </v-img>
             </v-card>
@@ -768,13 +768,19 @@ export default {
 
   async fetch () {
     let payload = this.$nuxt.context.payload
+    let loadnews = this.$nuxt.context.payload
     if (!payload) {
       payload = await this.$axios.$post('/.netlify/functions/featured', {
         type: 'articles'
       })
+      loadnews = await this.$axios.$post('/.netlify/functions/featured', {
+        type: 'news'
+      })
     }
+
     console.log(payload.length)
     this.articles = payload
+    this.news = loadnews
 
   }
 }

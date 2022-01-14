@@ -20,7 +20,7 @@
         <n-link :to="'/articles/' + post.slug">
           <v-card>
             <v-img
-              :src="post.imageLink"
+              :src="post.imageLink"        
               class="white--text align-end"
               gradient="to bottom, rgba(255,255,255,.1), rgba(255,255,255,.9)"
               height="270px"
