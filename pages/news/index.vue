@@ -20,7 +20,7 @@
         <n-link :to="'/news/' + post.slug">
           <v-card>
             <v-img
-              
+
               class="white--text align-end"
               gradient="to bottom, rgba(255,255,255,.1), rgba(255,255,255,.9)"
               height="270px"
@@ -130,8 +130,9 @@ export default{
 
   async fetch (){
     let payload = this.$nuxt.context.payload
+    console.log('disini');
     if (!payload) {
-      payload = await this.$axios.$post('/.netlify/funsctions/imavi-list', {
+      payload = await this.$axios.$post('/.netlify/functions/imavi-list', {
         type: 'news'
       })
     }

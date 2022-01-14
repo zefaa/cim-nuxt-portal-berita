@@ -17,7 +17,7 @@ const handler = async (event) => {
       body: JSON.stringify(response.data)
     }
   } catch (error) {
-    // console.log(error)
+    console.log(error)
     let statusCode = 500
     let body = 'An error has occured (500)'
     if (error.response && error.response.status) {

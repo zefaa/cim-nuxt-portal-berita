@@ -14,19 +14,19 @@
         class="articles-list"
       >
         <v-col
-          v-for="post in articless"
-          :key="post.fields.slug"
+          v-for="post in articles"
+          :key="post.slug"
           xs="12"
           sm="12"
           md="4"
           lg="4"
           class="articles-list-item"
         >
-          <n-link :to="'/articles/' + post.fields.slug">
+          <n-link :to="'/articles/' + post.slug">
             <v-card>
               <v-img
-                :src="post.fields.heroImage.fields.file.url + '?fm=jpg&fl=progressive'"
-                :alt="post.fields.heroImage.fields.file.fileName"
+                :src="post.imageLink"
+                :alt="post.imageLink"
                 class="white--text align-end"
                 gradient="to bottom, rgba(255,255,255,.5), rgba(255,255,255,1)"
                 height="270px"
@@ -35,11 +35,11 @@
               >
                 <v-card-title
                   class="card-title"
-                  v-text="post.fields.title"
+                  v-text="post.title"
                 />
                 <v-card-subtitle
                   class="card-excerpt"
-                  v-text="post.fields.excerpt"
+                  v-text="post.excerpt"
                 />
               </v-img>
             </v-card>
@@ -763,7 +763,7 @@ export default {
     dataList: [],
     news : [],
     sponsors : [],
-    articless : []
+    articles : []
   }),
 
   async fetch () {
@@ -774,7 +774,7 @@ export default {
       })
     }
     console.log(payload.length)
-    this.news = payload
+    this.articles = payload
 
   }
 }

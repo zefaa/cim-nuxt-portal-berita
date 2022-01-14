@@ -7,15 +7,15 @@
       {{ $moment(pageData.publishDate).format('D MMMM YYYY') }}
     </div>
     <div class="author text-right">
-      oleh: {{ pageData.author.name }}
+      oleh: {{ pageData.author }}
     </div>
     <div class="content">
       <v-img
-    
+
         class="news-image"
         cover
       />
-      <span v-html="$md.render(pageData.body)" />
+      <span v-html="$md.render(pageData.content)" />
     </div>
     <div class="share-buttons text-center">
       <v-btn
